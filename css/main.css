@@ -26,17 +26,35 @@ button:hover {
 }
 .textarea-container {
     position: absolute;
-    bottom: 70px;
-    left: 50%;
+    bottom: 60px;
+    left: 80%;
     transform: translateX(-50%);
-    width: 70%;
+    width: 20%;
     display: flex;
     align-items: center;
     z-index: 99999;
 }
+
+.subtitle {
+    position: absolute;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    font-size: 18px;
+    font-family: 'Courier New', Courier, monospace;
+    text-align: center;
+    z-index: 1000;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    border-radius: 5px;
+    max-width: 80%;
+    display: none;
+}
+
 textarea {
     width: 100%;
-    height: 100px;
+    height: 20px;
     background-color: #222;
     color: white;
     border: 1px solid #555;
@@ -51,12 +69,15 @@ textarea::placeholder {
 }
 .send-button {
     position: relative;
-    margin-left: -100px;
+    margin-left: -50px;
+    margin-right: 10px;
+    margin-bottom: 40px;
     background: #222;
     border: none;
     color: #888;
     cursor: pointer;
-    font-size: 24px;
+    font-size: 18px;
+    padding: 0;
 }
 .send-button:hover {
     color: white;
@@ -64,12 +85,14 @@ textarea::placeholder {
 
 .mic-button {
     position: relative;
-    margin-left: -120px;
+    margin-left: -60px;
+    margin-bottom: 40px;
     background: #222;
     border: none;
     color: #888;
     cursor: pointer;
-    font-size: 24px;
+    font-size: 18px;
+    padding: 0;
 }
 .mic-button:hover {
     color: white;
@@ -83,6 +106,7 @@ textarea::placeholder {
     color: #888;
     cursor: pointer;
     font-size: 24px;
+    display: none;
 }
 .chat-button:hover {
     color: white;
@@ -180,6 +204,7 @@ input[type="range"] {
     font-family: Arial, sans-serif;
     z-index: 10;
     transition: right 0.3s ease;
+    display: none;
 }
 
 #chatMessages.open {

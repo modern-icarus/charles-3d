@@ -26,8 +26,10 @@ function getModeThreshold() {
 }
 
 function handleMessage(sentence) {
+    const botSubtitle = document.getElementById('botSubtitle');
     sentenceOriginal = sentence;
     sentence = sentence.toLowerCase();
+
     (async () => {
         try {
             console.log("Processing sentence:", sentence);
@@ -55,10 +57,17 @@ function handleMessage(sentence) {
 
                 const { label, score } = highestPrediction;
                 const isHateSpeech = label === "HATE" ? "hate speech" : "not hate speech";
-                const confidence = Math.round(score*100);
+                const confidence = Math.round(score * 100);
 
-                addMessage(`I estimate that there is an ${confidence}% probability that what you said is ${isHateSpeech}.`, 'bot', label);
-                addMessage(sentence, 'user', label);
+                const botMessage = `I estimate that there is an ${confidence}% probability that what you said is ${isHateSpeech}.`;
+
+                // Add the bot reply to the chat box
+                addMessage(botMessage, 'bot', label);
+
+                // Display the bot reply as a subtitle
+                showBotSubtitle(botMessage);
+
+                // If hate speech detected, trigger angry mode
                 if (label === "HATE") {
                     setAngryMode(true);
                     setTimeout(() => setAngryMode(false), 3000);
@@ -66,22 +75,40 @@ function handleMessage(sentence) {
                 }
             } else {
                 console.log("No prediction results found.");
-
-                // Enable buttons
-                document.querySelectorAll('button').forEach(button => {
-                    button.disabled = false;
-                });
             }
         } catch (error) {
             console.error("Error processing sentence:", error);
 
-            // Enable buttons
+            // Show error in subtitle
+            showBotSubtitle("An error occurred while processing your request. Please try again.");
+        } finally {
+            // Enable buttons after processing
             document.querySelectorAll('button').forEach(button => {
                 button.disabled = false;
             });
         }
     })();
 }
+
+
+function showBotSubtitle(content) {
+    const subtitle = document.getElementById('botSubtitle');
+    subtitle.textContent = '';
+    subtitle.style.display = 'block';
+
+    let index = 0;
+    const typingInterval = setInterval(() => {
+        subtitle.textContent += content.charAt(index);
+        index++;
+        if (index === content.length) {
+            clearInterval(typingInterval);
+            setTimeout(() => {
+                subtitle.style.display = 'none';
+            }, 3000);
+        }
+    }, 50);
+}
+
 
 
 function toggleChatMessages() {
