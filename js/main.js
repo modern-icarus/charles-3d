@@ -59,7 +59,7 @@ function handleMessage(sentence) {
                 const isHateSpeech = label === "HATE" ? "hate speech" : "not hate speech";
                 const confidence = Math.round(score * 100);
 
-                const botMessage = `I estimate that there is an ${confidence}% probability that what you said is ${isHateSpeech}.`;
+                const botMessage = `I estimate that there is a ${confidence}% probability that what you said is ${isHateSpeech}.`;
 
                 // Add the bot reply to the chat box
                 addMessage(botMessage, 'bot', label);
